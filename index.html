@@ -1,0 +1,38 @@
+
+<a href="#" onclick = "closeWindow();">close</a>
+<iframe width="100%" height="450" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/209602080&amp;auto_play=true&amp;hide_related=true&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false&amp;visual=false"></iframe><script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<script>
+function say(strMessage, speed, pitch) {
+  var message = new SpeechSynthesisUtterance(strMessage);
+  var voices = speechSynthesis.getVoices();
+  message.voice = voices[10]; // Note: some voices don't support altering params
+  message.voiceURI = 'native';
+  message.volume = 1; // 0 to 1
+  message.rate = speed; // 0.1 to 10
+  message.pitch = pitch; //0 to 2
+  message.text = strMessage;
+  message.lang = 'en-US';
+  window.speechSynthesis.speak(message);
+}
+
+function parm(name) {
+    var captured = /message=([^&]+)/.exec(window.location.href)[1];
+    var result = null;
+
+    if (captured) {
+      result = decodeURIComponent(captured);
+    }
+
+    return result;
+}
+
+function sayMessage() {
+  say(message, 1, 1);
+  say(message, 0.4, 0.9);
+}
+
+$(document).ready(function(){
+  message = parm("message");
+  window.setTimeout(sayMessage,1000*8);
+})
+</script>
